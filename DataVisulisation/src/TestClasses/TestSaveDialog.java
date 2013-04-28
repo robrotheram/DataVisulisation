@@ -2,6 +2,7 @@
 package TestClasses;
 
 import TestUI.Test;
+import cs235a5.DataCell;
 import cs235a5.DataSet;
 import cs235a5.SaveDialog;
 import cs235a5.TabPanel;
@@ -18,8 +19,26 @@ import cs235a5.TabPanel;
 
 public class TestSaveDialog {
     private final String CLASSNAME = "SaveDialog";
-    private SaveDialog m_SD = new SaveDialog(new DataSet[]{new DataSet(0),new DataSet(1)}, new TabPanel());
-     /**
+    private DataSet[] db = new DataSet[]{new DataSet(0),new DataSet(1)};
+    private SaveDialog m_SD = new SaveDialog(db, new TabPanel());
+    private final int w = 4;
+    private final int h = 10;
+    
+    public TestSaveDialog(){
+        String[] title  = new String [] {"Title A", "Title B", "Title C", "Title D"};
+        db[0].SetDataSet(w, h);
+        db[1].SetDataSet(w, h);
+        for(int i = 0; i<h;i++){
+            for(int j = 0;j<w;j++){
+                db[0].SetDataCell(new DataCell(" "), j, i);
+                db[1].SetDataCell(new DataCell(" "), j, i);
+            }
+        }
+        db[0].SetHeader(title);
+        db[1].SetHeader(title);
+        
+    }
+    /**
      * Method to test the SaveDialog SaveFile() method  and returns a Test object containing the 
      * test tile, Class being tested, method being tested,test description, 
      * Input data expected output, if the test has been run and if the test 

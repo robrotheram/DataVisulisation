@@ -132,7 +132,7 @@ public class TestCloudIO {
                  "ssid != null" //Expected output
                  );   
         
-        String fileid  = "13";
+        String fileid  = "64";
         String ssid = Cloud.login("r","r");
         if(run){
             theTest.hasRun();
@@ -196,7 +196,7 @@ public class TestCloudIO {
         
         String userPass  = "r";
         String ssid = Cloud.login("r","r");
-        String path = Cloud.getFilePath(ssid, "13");
+        String path = Cloud.getFilePath(ssid, "64");
         if(run){
             theTest.hasRun();
             if(Cloud.DownloadFile(path)!=null){
