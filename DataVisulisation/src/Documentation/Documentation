@@ -1,0 +1,42 @@
+
+Update notes
+
+DataSet - Slight name change from dataSet to conform to the coding conventions
+        - To conform to the specification data is now held in an array of DataCell
+        - Stripped out the csv parser methods into the CSVReader class
+        - Added in methods to get and set the data
+CSVReader
+        - updated name from CSVInput to describe what the class does better
+        - added in the CSV parser.
+Visualiser
+        - Changed the name to Visualisation
+        - Added constructors to handle setting data for tables and charts
+        - Edited set methods to be booleans and for constructors to use error
+          handling
+        - Moved variables to the bottom of the class
+        - Implemented C3
+        - Added doxygen to all new methods and corrected any old ones
+
+
+Added Files
+
+DataType - Contains the enumeration data for checking what type of data 
+            a data cell currently holds
+
+DataCell - stores the individual data i.e. String, Double, integer
+
+CSVReaderDialog - Dialog for opening files
+
+CloudIO  - Methods for Communicating to the server
+CloudDialog - UI Dialog that uses the methods in the CloudIO Server
+JSONType - The types of responses that will be from the server
+JsonParser - parsees the Json response form the server
+SaveDialog - makes a xml file with all the data to remake the charts
+OpenDialog - uses a xml file to make all the charts again
+TabPanel - an extension to the JTabPanel that stores all the chart in a List
+
+
+
+Deleted files
+
+FileOut - Unimplemented class. No use in current project
