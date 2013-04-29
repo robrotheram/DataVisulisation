@@ -20,16 +20,21 @@ public class DataCell {
      * @return boolean true if set correctly
      */
     public boolean SetData(String input){
-        if(Pattern.matches(DOUBLEPATTERN, input)){
-            m_Double = Double.parseDouble(input);
-            m_String = input;
-            m_DataType = DataType.DOUBLE;
-            return true;
-       }else if(Pattern.matches(INTPATTERN, input)){
+         System.err.println("INPUT IS:                        "+input);
+        if(isInt(input)){
+           System.out.println();
+          
            m_Integer = Integer.parseInt(input);
+           
            m_String = input;
            m_Double = Double.parseDouble(input);
            m_DataType = DataType.INTEGER;
+            return true;
+        }else if(isDouble(input)){
+            System.err.println("DOUBLE");
+            m_Double = Double.parseDouble(input);
+            m_String = input;
+            m_DataType = DataType.DOUBLE;
             return true;
  
        }else if( //Case Statements to check if the string is a Boolean
@@ -58,6 +63,28 @@ public class DataCell {
                 return true;
            } 
     }
+    
+    private  boolean isInt(String str){
+        boolean isI = true;
+        int d = 0;
+        try{
+            d = Integer.parseInt(str);  
+          }catch(NumberFormatException nfe){  
+              isI = false;
+          }
+        return isI; 
+    }
+    private boolean isDouble(String str){
+            boolean isD = true;
+            double d = 0;
+            try{
+                d = Double.parseDouble(str);  
+              }catch(NumberFormatException nfe){  
+                 isD = false;
+              }
+            return isD; 
+        }
+    
     
      /** Returns and integer
      * Returns the integer data that has been stored
@@ -133,7 +160,7 @@ public class DataCell {
     
     
     private String m_String;                                        //Initalises the m_String variable
-    private Integer m_Integer;                                      //Initalises the m_Integer variable
+    private Integer m_Integer = 0;                                      //Initalises the m_Integer variable
     private Double m_Double;                                        //Initalises the m_Double variable
     private boolean m_boolean;                                      //Initalises the m_boolean variable
     private DataType m_DataType;                                    //Initalises the m_DataType variable

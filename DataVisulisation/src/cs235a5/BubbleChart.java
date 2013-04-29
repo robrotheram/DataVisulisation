@@ -221,9 +221,9 @@ public class BubbleChart extends Chart{
 
 
                         //Check if datatype is a number
-                        if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.INTEGER){
+                        if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.INTEGER){
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetInteger();  
-                        }else if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.DOUBLE){
+                        }else if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.DOUBLE){
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDouble(); 
                         }
                     }

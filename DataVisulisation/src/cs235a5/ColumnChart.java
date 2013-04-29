@@ -208,10 +208,13 @@ public class ColumnChart extends Chart {
             if(!super.isUnique(super.GetDataSet().GetCell(super.GetXColumnPosition(), i).toString())){
                 for(j = pos; j < super.GetDataSet().GetNumOfRows()-1; j++ ){
                     if(preVal.toString().equals(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).toString())){
-                        if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.INTEGER){
+                        System.out.println("Datattype = "+ super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType());
+                        if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.INTEGER){
+                            System.out.println("Integer:= "+super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetInteger());
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetInteger();  
-                        }else if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.DOUBLE){
+                        }else if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.DOUBLE){
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDouble(); 
+                            System.out.println("Double:= "+super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDouble());
                         }
                     }
                 }
@@ -219,7 +222,7 @@ public class ColumnChart extends Chart {
 
                 //Add to chart dataSet
                 String header = super.GetData().GetAColumnName(super.GetXColumnPosition())+":";
-                dataset.addValue(sum, super.GetTitle(),header+preVal.GetString());
+                dataset.addValue(sum, super.GetTitle(),preVal.GetString());
 
 
 

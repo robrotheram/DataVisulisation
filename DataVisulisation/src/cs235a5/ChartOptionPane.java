@@ -62,7 +62,7 @@ public class ChartOptionPane extends JFrame{
     private final Dimension BUTTONSIZE = new Dimension(350, 100);
     private final Dimension LABLESIZE = new Dimension(200, 30);
     private final Dimension RIGHPANELSIZE =new Dimension(300, 300);
-    private final Dimension PANELSIZE =new Dimension(800, 575);
+    private final Dimension PANELSIZE =new Dimension(830, 625);
     private final int ColorPostion1 = 1;
     private final int ColorPostion2 = 2;
     private final int ColorPostion3 = 3;
@@ -139,6 +139,8 @@ public class ChartOptionPane extends JFrame{
         
         m_SlideShow = new JButton("Start Slide Show");
         m_deleteSlide = new JButton("Delete Slide");
+        
+        
         AnimationSpeed[] s = new AnimationSpeed[]{AnimationSpeed.VERYFAST,
             AnimationSpeed.FAST,AnimationSpeed.SLOW};
         AnimationWait[] w = new AnimationWait[]{AnimationWait.VERYLONG,
@@ -223,6 +225,9 @@ public class ChartOptionPane extends JFrame{
         m_acceptButton = new JButton("Add Chart");
         m_cancelButton = new JButton("Cancel");
         m_addSlideShow = new JButton("Add to SlideShow");
+        m_AutoSlide = new JButton("Auto Create SlideShow");
+       
+        
         m_rightPanel.add(m_datasetLabel);
         m_rightPanel.add(m_datasetBox);
         m_rightPanel.add(m_titleLabel);
@@ -239,6 +244,7 @@ public class ChartOptionPane extends JFrame{
         m_rightPanel.add(m_colourCheck);
         m_rightPanel.add(m_userColourDisplay);
         m_rightPanel.add(m_acceptButton);
+        m_rightPanel.add(m_AutoSlide);
         m_rightPanel.add(m_addSlideShow);
         m_rightPanel.add(m_cancelButton);
         m_rightPanel.setPreferredSize(RIGHPANELSIZE);
@@ -352,15 +358,43 @@ public class ChartOptionPane extends JFrame{
             }
         });
         
+        
+       m_AutoSlide.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                for(int i = 0; i<=SCATTERPLOT;i++){
+                    
+                    SlideShowList.addElement(i);
+                    m_data = m_db[0];
+                    JPanel ch1 = getChart(i);
+                    m_data = m_db[1];
+                    JPanel ch2 = getChart(i);
+                    SlideShow.addBiCharts(
+                        ch1, 
+                        ch2, 
+                        AnimationType.LEFT, 
+                        (AnimationSpeed) m_speed.getSelectedItem(), 
+                        (AnimationWait) m_wait.getSelectedItem());
+                }
+                SlideShow.setSpeed((AnimationSpeed) m_speed.getSelectedItem());
+                SlideShow.setWait((AnimationWait) m_wait.getSelectedItem());
+                
+                SlideShow.setVisible(true);
+            }
+           
+           
+       });
+        
        m_addSlideShow.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent ae) {
                 SlideShowList.addElement(GetChartType());
                 m_data = m_db[0];
-                JPanel ch1 = getChart();
+                JPanel ch1 = getChart(GetChartType());
                 m_data = m_db[1];
-                JPanel ch2 = getChart();
+                JPanel ch2 = getChart(GetChartType());
                 SlideShow.addBiCharts(
                         ch1, 
                         ch2, 
@@ -369,7 +403,8 @@ public class ChartOptionPane extends JFrame{
                         (AnimationWait) m_wait.getSelectedItem());
              
                         
-            } 
+            }
+            
        });
        m_SlideShow.addActionListener(new ActionListener(){
 
@@ -400,7 +435,7 @@ public class ChartOptionPane extends JFrame{
             @Override
             public void actionPerformed(ActionEvent event) {
                 
-                m_tabs.AddTab(GetTitle(),getChart());
+                m_tabs.AddTab(GetTitle(),getChart(GetChartType()));
             }
         });
         m_cancelButton.addActionListener(new ActionListener() {
@@ -428,43 +463,43 @@ public class ChartOptionPane extends JFrame{
      * @return Chart the Bar,PieScatter etc chart with all the data the user inputted
      */
     
-    private Chart getChart(){
-        if(GetChartType() == AREACHART){
+    private Chart getChart(int ChartType){
+        if(ChartType == AREACHART){
                     AreaChart areaChart = new AreaChart(m_data, GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
                             m_tabs.getWidth(),m_tabs.getWidth()),
                             GetColours(), GetAuthor(), GetDescription());
                     return(areaChart);
                     
-                } else if (GetChartType() == POLARCHART){
+                } else if (ChartType == POLARCHART){
                     PolarPlot polarChart = new PolarPlot(m_data, GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
                             m_tabs.getWidth(),m_tabs.getWidth()),
                             GetColours(), GetAuthor(), GetDescription());
                     return(polarChart);
                     
-                } else if (GetChartType() == BARCHART){
+                } else if (ChartType == BARCHART){
                     ColumnChart barChart = new ColumnChart(m_data, GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
                             m_tabs.getWidth(),m_tabs.getWidth()),
                             GetColours(), GetAuthor(), GetDescription());
                     return(barChart);
                     
-                } else if (GetChartType() == LINECHART){
+                } else if (ChartType == LINECHART){
                     LineChart lineChart = new LineChart(m_data, GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
                             m_tabs.getWidth(),m_tabs.getWidth()),
                             GetColours(), GetAuthor(), GetDescription());
                     return(lineChart);
                     
-                } else if (GetChartType() == PIECHART){
+                } else if (ChartType == PIECHART){
                     PieChart pieChart = new PieChart(m_data, GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
                             m_tabs.getWidth(),m_tabs.getWidth()),
                             GetColours(), GetAuthor(), GetDescription());
                     return(pieChart);
                     
-                } else if (GetChartType() == BUBBLECHART){
+                } else if (ChartType == BUBBLECHART){
                     BubbleChart bubbleChart = new BubbleChart(m_data, 
                             GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
@@ -472,7 +507,7 @@ public class ChartOptionPane extends JFrame{
                             GetColours(), GetAuthor(), GetDescription());
                     return(bubbleChart);
                     
-                } else if (GetChartType() == SCATTERPLOT){
+                } else if (ChartType == SCATTERPLOT){
                     ScatterPlotChart scatterChart = new ScatterPlotChart(m_data, 
                             GetXData(), 
                             GetYData(), GetTitle(),new Rectangle(0,0,
@@ -628,7 +663,7 @@ public class ChartOptionPane extends JFrame{
     private DataSet[] m_db;
     private JTextField m_chartTitle, m_chartAuthor, m_chartDescription;
     private JComboBox m_xAxisData, m_yAxisData, m_colourMapList,m_datasetBox,m_speed,m_wait;
-    public static JButton m_acceptButton, m_cancelButton,m_addSlideShow, m_SlideShow, m_deleteSlide;
+    public static JButton m_acceptButton, m_cancelButton,m_addSlideShow, m_SlideShow, m_deleteSlide, m_AutoSlide;
     private JList m_chartList, m_AnimationList;
     private ImageIcon[] m_chartImages, m_colourKeys;
     private String[] m_chartStrings, m_chartImageDescriptions, m_colNames;

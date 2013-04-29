@@ -232,9 +232,9 @@ public class PieChart extends Chart {
             }
         for(j = pos; j < super.GetDataSet().GetNumOfRows()-1; j++ ){
             if(super.m_foundElements.get(super.m_foundElements.size()-1).equals(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).toString())){
-                if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.INTEGER){
+                if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.INTEGER){
                     sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetInteger();  
-                }else if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.DOUBLE){
+                }else if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.DOUBLE){
                     sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDouble(); 
                 }
             }

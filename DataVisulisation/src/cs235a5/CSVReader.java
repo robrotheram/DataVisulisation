@@ -126,6 +126,11 @@ public class CSVReader {
             
             
             String[] names  = in.nextLine().split(m_delimitor);
+            for (int i = 0; i<names.length; i++){
+                names[i] = CleanString(names[i],"Title"+i);
+            }
+            
+            
             lnr.skip(Long.MAX_VALUE);
             m_DB.SetDataSet(names.length, lnr.getLineNumber());
             System.err.println(CLASS+".ParseFile(): File Line vlaue = "+
@@ -133,6 +138,7 @@ public class CSVReader {
             
             m_DB.SetHeader(names);
             int i = 0;
+         
             while(in.hasNextLine()){
                 String[] tempData = in.nextLine().split(",");
        
@@ -164,9 +170,11 @@ public class CSVReader {
         if(checkArray(tempData)){
             int newPos =  0; 
             for(int j =0; j < tempData.length; j++ ){
+                
                 if(!tempData[j].equals("")){
-                    m_DB.SetDataCell(new DataCell(tempData[j]),
+                    m_DB.SetDataCell(new DataCell(CleanString(tempData[j],"0")),
                             newPos, i);
+                    
                     newPos++;
                 }       
             }
@@ -174,6 +182,22 @@ public class CSVReader {
         }else{
             return false;
         }
+    }
+    /**
+     * Method to clean the string
+     */
+    private String CleanString(String s,String rpl){
+        String newString;
+        if((s.equals(""))||(s==null)){
+            newString = rpl;
+        }else{
+            newString = s.replaceAll("\"", "");
+            System.out.print(newString);
+            if((newString.equals(""))||(newString==null)){
+                newString = rpl;
+            }
+        }
+        return newString;
     }
     
     /**

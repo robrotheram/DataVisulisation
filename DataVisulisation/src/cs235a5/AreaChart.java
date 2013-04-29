@@ -1,7 +1,7 @@
 package cs235a5;
 
 /**
- *
+ * \class       AreaChart.java
  * \file        AreaChart.java
  * \author      Alex Mcdonough & Robert Fletcher
  * 

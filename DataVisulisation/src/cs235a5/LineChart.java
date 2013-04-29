@@ -212,9 +212,9 @@ public class LineChart extends Chart{
 
 
                         //Check if datatype is a number
-                        if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.INTEGER){
+                        if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.INTEGER){
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetInteger();  
-                        }else if(super.GetDataSet().GetCell(super.GetXColumnPosition(), j).GetDataType()==DataType.DOUBLE){
+                        }else if(super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDataType()==DataType.DOUBLE){
                             sum += super.GetDataSet().GetCell(super.GetYColumnPosition(), j).GetDouble(); 
                         }
                     }
@@ -222,7 +222,13 @@ public class LineChart extends Chart{
                 super.m_foundElements.add(super.GetDataSet().GetCell(super.GetXColumnPosition(), i).toString());
 
                 //Add to chart dataSet
-                 series.add(sum,preVal.GetInteger());
+                 if(preVal.GetDataType()==DataType.INTEGER){
+                     series.add(sum,preVal.GetInteger());
+                 }else if(preVal.GetDataType()==DataType.DOUBLE){
+                     System.err.println("Chart: x"+preVal.GetDouble()+" | y:"+sum);
+                     series.add(sum,preVal.GetDouble());
+                 }
+                 
 
 
 
